@@ -1,0 +1,13 @@
+{
+    "name": "Avtech",
+    "meta": {
+        "vendor": "AVTECH Corp",
+        "class": "IP Camera",
+        "website": "http://www.avtech.com.tw/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["Avtech"]
+            }
+    }
+}

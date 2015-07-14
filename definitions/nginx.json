@@ -1,0 +1,13 @@
+{
+    "name": "nginx",
+    "meta": {
+        "vendor": "nginx",
+        "class": "HTTP Server",
+        "website": "http://nginx.org/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["nginx"]
+            }
+    }
+}

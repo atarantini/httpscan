@@ -6,7 +6,7 @@
     },
     "rules": {
             "headers": {
-                "server": ["DVRDVS-Webs"]
+                "server": ["DVRDVS-Webs", "Hikvision-Webs"]
             }
     }
 }
