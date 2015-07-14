@@ -1,0 +1,12 @@
+{
+    "name": "hikvision",
+    "meta": {
+        "vendor": "Hikvision",
+        "class": "IP Camera"
+    },
+    "rules": {
+            "headers": {
+                "server": ["DVRDVS-Webs"]
+            }
+    }
+}

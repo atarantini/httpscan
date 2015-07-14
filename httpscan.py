@@ -6,12 +6,14 @@ Scan networks for HTTP servers
 """
 import argparse
 import logging
-import re
+import json
+from glob import glob
 
+import re
+from os.path import basename
 import nmap
 import requests
 
-from definitions import DEFINITIONS
 
 PORT = 80
 BATCH_TEMPLATE_DEFAULT = '{host}'
@@ -98,14 +100,17 @@ if __name__ == '__main__':
     # Fingerprint
     #
 
-    # Create definitions DB and compile regexp
+    # Load definitions DB
     definitions_db = {}
-    regexp_map = []
-    for definition in DEFINITIONS:
-        definitions_db[definition.get('name')] = definition
+    for definition_path in glob('definitions/*.json'):
+        definitions_db[basename(definition_path[:-5])] = json.loads(
+            open(definition_path).read())
 
+    # Compile regexp
+    regexp_map = []
+    for name, definition in definitions_db.iteritems():
         for r in definition.get('rules').get('headers').get('server'):
-            regexp_map.append((re.compile(r), definition.get('name')))
+            regexp_map.append((re.compile(r), name))
 
     for host, port in hosts:
         # Make HTTP request
