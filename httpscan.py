@@ -117,8 +117,11 @@ if __name__ == '__main__':
         url = 'http://{host}/'.format(host=host)
         try:
             response = requests.get(url)
-        except requests.exceptions.SSLError:
-            logger.debug('{} SSL error'.format(url))
+        except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
+            logger.debug('{url} request error: {exc}'.format(
+                url=url,
+                exc=e
+            ))
             continue
 
         identity = None
@@ -138,7 +141,7 @@ if __name__ == '__main__':
         logger.info('{host}|{name}|{definition}'.format(
             host=host,
             name=identity.get('name'),
-            definition=identity
+            definition=identity.get('meta')
             )
         )
         """
