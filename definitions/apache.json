@@ -1,0 +1,12 @@
+{
+    "name": "Apache HTTP Server",
+    "meta": {
+        "vendor": "The Apache Software Foundation",
+        "class": "HTTP Server"
+    },
+    "rules": {
+            "headers": {
+                "server": ["Apache"]
+            }
+    }
+}
