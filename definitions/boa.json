@@ -1,0 +1,13 @@
+{
+    "name": "Boa",
+    "meta": {
+        "vendor": "Boa Webserver",
+        "class": "HTTP Server",
+        "website": "http://www.boa.org/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["Boa"]
+            }
+    }
+}
