@@ -116,8 +116,8 @@ if __name__ == '__main__':
         # Make HTTP request
         url = 'http://{host}/'.format(host=host)
         try:
-            response = requests.get(url)
-        except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
+            response = requests.get(url, timeout=5)
+        except (requests.exceptions.RequestException, requests.exceptions.SSLError) as e:
             logger.debug('{url} request error: {exc}'.format(
                 url=url,
                 exc=e
