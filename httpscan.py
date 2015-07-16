@@ -5,6 +5,7 @@ httpscan
 Scan networks for HTTP servers
 """
 import argparse
+import imp
 import logging
 import json
 from glob import glob
@@ -133,6 +134,24 @@ if __name__ == '__main__':
                 if regexp.search(header_server):
                     identity = definitions_db.get(http_server)
                     break
+
+        # Run plugins
+        if identity.get('plugins') and isinstance(identity.get('plugins'), list):
+            for plugin_name in identity.get('plugins'):
+                try:
+                    plugin_information = imp.find_module(plugin_name, ['plugins'])
+                    if plugin_information:
+                        plugin = imp.load_module(
+                            'plugins.{name}'.format(name=plugin_name),
+                            *plugin_information
+                        )
+                        identity = plugin.run(http_server, identity, response)
+                except (ImportError, Exception) as e:
+                    logger.warning(
+                        'Unable to load plugin "{}" for "{}" definition: {}'.format(
+                            plugin_name, identity.get('name'), e
+                        )
+                    )
 
         # Default identity
         if not identity:
