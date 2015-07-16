@@ -8,14 +8,15 @@ import argparse
 import imp
 import logging
 import json
-from glob import glob
-import warnings
-warnings.filterwarnings("ignore")
-
 import re
+import warnings
+from glob import glob
 from os.path import basename
+
 import nmap
 import requests
+
+warnings.filterwarnings("ignore")
 
 PORT = 80
 
