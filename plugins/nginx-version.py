@@ -10,6 +10,9 @@ REGEX_VERSION = 'nginx/(.*) '
 def run(host, definition, response):
     r = re.compile(REGEX_VERSION)
     match = r.match(response.headers.get('server'))
+    if not match:
+        return definition
+
     groups = match.groups()
     if groups:
         definition[u'meta'][u'version'] = groups[0]
