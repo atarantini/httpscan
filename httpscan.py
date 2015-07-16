@@ -9,29 +9,16 @@ import imp
 import logging
 import json
 from glob import glob
+import warnings
+warnings.filterwarnings("ignore")
 
 import re
 from os.path import basename
 import nmap
 import requests
 
-
 PORT = 80
-BATCH_TEMPLATE_DEFAULT = '{host}'
 
-
-def out(hostname, fingerprint, template='{host}'):
-    """
-    Return a string to be used as output when "--batch" mode is enabled
-
-    :param hostname:    String with the hostname
-    :param template:    String with a template, defaults to "{host}" [1]
-
-    :return:    String to be used as output
-
-    [1] See https://docs.python.org/2/library/string.html#formatstrings
-    """
-    return template.format(host=hostname, fingerprint=fingerprint)
 
 #
 # Main
@@ -45,13 +32,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Scan networks for HTTP servers')
     parser.add_argument('hosts', help='An IP address for a hostname or network, ex: 192.168.1.1 for single host or 192.168.1.1-254 for network.')
     parser.add_argument('--fast', help='Change timeout settings for the scanner in order to scan faster (T5).', default=False, action='store_true')
-    parser.add_argument('--batch', help='Batch mode will only output hosts, handy to use with unix pipes.', default=False, action='store_true')
-    parser.add_argument('--batch-template', help='Change batch mode output template, default is "{host}". Available context variables: host, username, password. Ex: "{username}@{host}" will return "root@192.168.0.1" as output when running in batch mode.', default=BATCH_TEMPLATE_DEFAULT)
     args = parser.parse_args()
-
-    # If "--batch-template" is sent, assume that the user wants batch mode
-    if args.batch_template != BATCH_TEMPLATE_DEFAULT:
-        args.batch = True
 
     # Setup logging
     logger = logging.getLogger('httpscan')
@@ -61,13 +42,10 @@ if __name__ == '__main__':
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
-    if args.batch:
-        logger.setLevel(logging.INFO)
-    else:
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.DEBUG)
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
 
     ###########################################################################
     # Scan
@@ -163,10 +141,3 @@ if __name__ == '__main__':
             definition=identity.get('meta')
             )
         )
-        """
-        print out(
-            host,
-            headers_server_fingerprint,
-            template=args.batch_template
-        )
-        """
