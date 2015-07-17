@@ -1,0 +1,12 @@
+{
+    "name": "OpenWRT",
+    "meta": {
+        "vendor": "The OpenWrt Developer Team",
+        "class": "Router",
+        "website": "https://openwrt.org/"
+    },
+    "rules": {
+            "headers": {"server": []},
+            "body": ["/cgi-bin/luci"]
+    }
+}
