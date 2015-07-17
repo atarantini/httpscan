@@ -74,11 +74,82 @@ file using ``pip``:
 If the project get some stars, I will upload it to the `The Python Package Index`_.
 
 
-Other features
+Definitions DB
 --------------
 
+In order to identify an HTTP server, **httpscan** use a definition database located in the `definitions/` directory.
+
+Definitions are simple JSON files with server name, metadata, signatures/rules for fingerprint and, optionally, a
+plugin pipeline that augments the definition of the server.
+
+For example, the `nginx` definition located on `definitions/nginx.json`:
+
+.. code-block:: json
+
+    {
+        "name": "nginx",
+        "meta": {
+            "vendor": "nginx",
+            "class": "HTTP Server",
+            "website": "http://nginx.org/"
+        },
+        "rules": {
+                "headers": {
+                    "server": ["nginx"]
+                }
+        },
+        "plugins": ["nginx-version"]
+    }
+
+A definition is composed by:
+
+* name (mandatory): Name to describe the server
+* meta (optional): Metadata about the server, will be returned in the logs. If you write plugins to gather information, you can extend this field with additional data.
+* rules (mandatory): Matching rules to identify the server. Currently the only rule suported is headers/server with a list of regular expressions to identify the server.
+* plugins (optional): A list with plugin names that will be executed one after the other forwarding host, definition and response data.
+
+
+Plugins
+-------
+
+When a server is identified by the definition `rules`, **httpscan** can execute custom plugins located in the `plugins/` directory.
+
+Plugins are python files that implement a single function named `run` that returns a definition.
+
+The signature for the funcion is  `run(host, definition, response)` where:
+
+* host: Server host/IP
+* definition: A dictionary with the definition representation
+* response: A `requests` response object
+
+Definitions are passed by from one plugin to another and each plugin can augment or extend the server definition.
+
+An example of the `nginx-version` plugin:
+
+.. code-block:: python
+
+    import re
+
+    REGEX_VERSION = 'nginx/(.*) '
+
+    def run(host, definition, response):
+        r = re.compile(REGEX_VERSION)
+        match = r.match(response.headers.get('server'))
+        groups = match.groups()
+        if groups:
+            definition[u'meta'][u'version'] = groups[0]
+
+        return definition
+
+This plugin try to fetch the version of the server and extend `meta` definition with the `version` property that results in
+
+.. code-block:: bash
+
+    2015-07-15 21:19:33,256 - httpscan - INFO - 192.168.1.21|nginx|{'version': '1.2.3', u'website': u'http://nginx.org/', u'vendor': u'nginx', u'class': u'HTTP Server'}
+
+
 Logging
-^^^^^^^
+-------
 
 All important information is stored in ``httpscan.log``:
 
