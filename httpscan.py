@@ -92,9 +92,9 @@ if __name__ == '__main__':
                     identity = definitions_db.get(http_server)
                     break
 
-        # TODO: Body
+        # Body
         body = response.text
-        if body:
+        if body and not identity:
             for regexp, http_server in regexp_body:
                 if regexp.search(body):
                     identity = definitions_db.get(http_server)
