@@ -1,0 +1,14 @@
+{
+    "name": "Microsoft IIS",
+    "meta": {
+        "vendor": "Microsoft",
+        "class": "HTTP Server",
+        "website": "https://www.iis.net/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["IIS"]
+            }
+    },
+    "plugins": ["server-header-slash-version"]
+}
