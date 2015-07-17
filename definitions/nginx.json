@@ -10,5 +10,5 @@
                 "server": ["nginx"]
             }
     },
-    "plugins": ["nginx-version"]
+    "plugins": ["server-header-slash-version"]
 }
