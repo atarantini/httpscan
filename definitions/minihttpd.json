@@ -1,0 +1,14 @@
+{
+    "name": "mini_httpd",
+    "meta": {
+        "vendor": "ACME Labs",
+        "class": "HTTP Server (embed)",
+        "website": "http://acme.com/software/mini_httpd/"
+    },
+    "rules": {
+        "headers": {
+            "server": ["mini_httpd"]
+        }
+    },
+    "plugins": ["server-header-slash-version"]
+}

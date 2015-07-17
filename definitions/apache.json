@@ -8,5 +8,6 @@
             "headers": {
                 "server": ["Apache"]
             }
-    }
+    },
+    "plugins": ["server-header-slash-version"]
 }

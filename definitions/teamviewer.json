@@ -1,0 +1,14 @@
+{
+    "name": "TeamViewer",
+    "meta": {
+        "vendor": "TeamViewer",
+        "class": "Remote Access",
+        "website": "https://www.teamviewer.com/"
+    },
+    "rules": {
+            "headers": {
+                "server": []
+            },
+            "body": ["TeamViewer"]
+    }
+}
