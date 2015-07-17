@@ -113,19 +113,19 @@ pull request or ticket with your definitions in order to share it with the commu
 Plugins
 -------
 
-When a server is identified by the definition `rules`, **httpscan** can execute custom plugins located in the `plugins/` directory.
+When a server is identified by the definition ``rules``, **httpscan** can execute custom plugins located in the ``plugins/`` directory.
 
-Plugins are python files that implement a single function named `run` that returns a definition.
+Plugins are python files that implement a single function named ``run`` that returns a definition.
 
-The signature for the funcion is  `run(host, definition, response)` where:
+The signature for the function is  ``run(host, definition, response)`` where:
 
 * host: Server host/IP
 * definition: A dictionary with the definition representation
-* response: A `requests` response object
+* response: A ``requests`` response object
 
 Definitions are passed by from one plugin to another and each plugin can augment or extend the server definition.
 
-An example of the `nginx-version` plugin:
+An example of the ``nginx-version`` plugin (``plugins/nginx-version.py``):
 
 .. code-block:: python
 
@@ -142,7 +142,7 @@ An example of the `nginx-version` plugin:
 
         return definition
 
-This plugin try to fetch the version of the server and extend `meta` definition with the `version` property that results in
+This plugin try to fetch the version of the server and extend ``meta`` definition with the ``version`` property that results in
 
 .. code-block:: bash
 
