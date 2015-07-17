@@ -77,12 +77,12 @@ If the project get some stars, I will upload it to the `The Python Package Index
 Definitions DB
 --------------
 
-In order to identify an HTTP server, **httpscan** use a definition database located in the `definitions/` directory.
+In order to identify an HTTP server, **httpscan** use a definition database located in the ``definitions/`` directory.
 
 Definitions are simple JSON files with server name, metadata, signatures/rules for fingerprint and, optionally, a
 plugin pipeline that augments the definition of the server.
 
-For example, the `nginx` definition located on `definitions/nginx.json`:
+For example, the ``nginx`` definition located on ``definitions/nginx.json``:
 
 .. code-block:: json
 
@@ -97,8 +97,7 @@ For example, the `nginx` definition located on `definitions/nginx.json`:
                 "headers": {
                     "server": ["nginx"]
                 }
-        },
-        "plugins": ["nginx-version"]
+        }
     }
 
 A definition is composed by:
@@ -108,6 +107,8 @@ A definition is composed by:
 * rules (mandatory): Matching rules to identify the server. Currently the only rule suported is headers/server with a list of regular expressions to identify the server.
 * plugins (optional): A list with plugin names that will be executed one after the other forwarding host, definition and response data.
 
+Simple template ready for create a new definition is located on ``definitions/template.json``. Don't forget to create a
+pull request or ticket with your definitions in order to share it with the community.
 
 Plugins
 -------
