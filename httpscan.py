@@ -111,7 +111,7 @@ if __name__ == '__main__':
                                 'plugins.{name}'.format(name=plugin_name),
                                 *plugin_information
                             )
-                            identity = plugin.run(http_server, identity, response)
+                            identity = plugin.run(host, identity, response)
                     except (ImportError, Exception) as e:
                         log.warning(
                             'Unable to load plugin "{}" for "{}" definition: {}'.format(
