@@ -1,0 +1,12 @@
+{
+    "name": "Mikrotik",
+    "meta": {
+        "vendor": "Mikrotik",
+        "class": "Router",
+        "website": "http://www.mikrotik.com/"
+    },
+    "rules": {
+            "headers": {"server": []},
+            "body": ["mikrotik"]
+    }
+}
