@@ -26,7 +26,12 @@ Scan your own machine:
     2015-07-15 21:18:43,497 - httpscan - DEBUG - Scanning...
     2015-07-15 21:18:43,556 - httpscan - DEBUG - 1 hosts up, 1 total in 0.04s
     2015-07-15 21:18:43,556 - httpscan - DEBUG - 127.0.0.1 Seems to have an HTTP server
-    2015-07-15 21:18:43,603 - httpscan - INFO - 127.0.0.1|nginx|{u'website': u'http://nginx.org/', u'vendor': u'nginx', u'class': u'HTTP Server'}
+    2015-07-15 21:18:43,603 - httpscan - INFO - 127.0.0.1|nginx
+    {
+        u'website': u'http://nginx.org/',
+        u'vendor': u'nginx',
+        u'class': u'HTTP Server'
+    }
 
 You local network or bigger network segment, with ``--fast`` to improve speed:
 
@@ -39,7 +44,12 @@ You local network or bigger network segment, with ``--fast`` to improve speed:
     2015-07-15 21:19:33,052 - httpscan - DEBUG - 192.168.1.1 Seems to have an HTTP server
     2015-07-15 21:19:33,052 - httpscan - DEBUG - 192.168.1.21 Seems to have an HTTP server
     2015-07-15 21:19:33,254 - httpscan - INFO - 192.168.1.1|httpd|None
-    2015-07-15 21:19:33,256 - httpscan - INFO - 192.168.1.21|nginx|{u'website': u'http://nginx.org/', u'vendor': u'nginx', u'class': u'HTTP Server'}
+    2015-07-15 21:19:33,256 - httpscan - INFO - 192.168.1.21|nginx|
+    {
+        u'website': u'http://nginx.org/',
+        u'vendor': u'nginx',
+        u'class': u'HTTP Server'
+    }
 
 
 Install
