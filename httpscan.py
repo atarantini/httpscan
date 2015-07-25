@@ -85,8 +85,16 @@ if __name__ == '__main__':
     # Load definitions DB
     definitions_db = {}
     for definition_path in glob('definitions/*.json'):
-        definitions_db[basename(definition_path[:-5])] = json.loads(
-            open(definition_path).read())
+        try:
+            definitions_db[basename(definition_path[:-5])] = json.loads(
+                open(definition_path).read()
+            )
+        except ValueError:
+            log.warning(
+                'Unable to load "{path}" due to malformed JSON'.format(
+                    path=definition_path
+                )
+            )
 
     # Compile regexp
     regexp_header_server = []
