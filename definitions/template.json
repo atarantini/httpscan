@@ -6,8 +6,8 @@
         "website": ""
     },
     "rules": {
-            "headers": {
-                "server": []
-            }
+        "headers": {
+            "server": []
+        }
     }
 }
