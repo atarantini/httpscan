@@ -30,7 +30,8 @@ Scan your own machine:
     {
         u'website': u'http://nginx.org/',
         u'vendor': u'nginx',
-        u'class': u'HTTP Server'
+        u'class': u'HTTP Server',
+        u'version': '4.07'
     }
 
 You local network or bigger network segment, with ``--fast`` to improve speed:
@@ -48,7 +49,8 @@ You local network or bigger network segment, with ``--fast`` to improve speed:
     {
         u'website': u'http://nginx.org/',
         u'vendor': u'nginx',
-        u'class': u'HTTP Server'
+        u'class': u'HTTP Server',
+        u'version': '4.07'
     }
 
 
