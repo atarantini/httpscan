@@ -8,9 +8,11 @@ import argparse
 import imp
 import json
 import re
+import string
 import warnings
 from glob import glob
-from os.path import basename
+from os.path import basename, exists
+from sys import exit
 
 import requests
 
@@ -34,7 +36,38 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Scan networks for HTTP servers')
     parser.add_argument('hosts', help='An IP address for a hostname or network, ex: 192.168.1.1 for single host or 192.168.1.1-254 for network.')
     parser.add_argument('--fast', help='Change timeout settings for the scanner in order to scan faster (T5).', default=False, action='store_true')
+    parser.add_argument('--definitions-create', help='Create a definition for a given host', default=False, action='store_true')
     args = parser.parse_args()
+
+    ###########################################################################
+    # Create new definition from host if "--definitions-create" argument is set
+    #
+    if args.definitions_create:
+        url = 'http://{host}/'.format(host=args.hosts)
+        try:
+            response = requests.get(url, timeout=5, verify=False)
+        except (requests.exceptions.RequestException, requests.exceptions.SSLError) as e:
+            log.debug('{url} request error: {exc}'.format(url=url, exc=e))
+            exit()
+
+        valid_charcters = string.ascii_lowercase + string.digits
+        name = ''.join([char for char in response.headers.get('server', '').lower() if char in valid_charcters])
+        if not name:
+            log.debug('Unable to find proper information to create a definition of {url}'.format(url=url))
+            exit()
+        definition_path = 'definitions/{}.json'.format(name)
+        template = json.loads(open('definitions/template.json', 'r').read())
+        template['name'] = name
+        template['rules']['headers']['server'] = [response.headers.get('server')]
+        if exists(definition_path):
+            log.warning('Definition {name} already exists'.format(name=name))
+            exit()
+        # Save definition
+        f = file(definition_path, 'w')
+        f.write(json.dumps(template, indent=4))
+        print template
+        exit()
+
 
     ###########################################################################
     # Scan
