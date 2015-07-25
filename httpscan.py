@@ -10,6 +10,7 @@ import json
 import re
 import string
 import warnings
+from copy import deepcopy
 from glob import glob
 from os.path import basename, exists
 from sys import exit
@@ -152,7 +153,7 @@ if __name__ == '__main__':
                                 'plugins.{name}'.format(name=plugin_name),
                                 *plugin_information
                             )
-                            identity = plugin.run(host, identity, response)
+                            identity = plugin.run(host, deepcopy(identity), response)
                     except (ImportError, Exception) as e:
                         log.warning(
                             'Unable to load plugin "{}" for "{}" definition: {}'.format(
