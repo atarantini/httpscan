@@ -1,0 +1,12 @@
+{
+    "name": "DD-WRT",
+    "meta": {
+        "website": "http://www.dd-wrt.com/",
+        "vendor": "embeDD GmbH",
+        "class": "Router"
+    },
+    "rules": {
+        "headers": { "server": [] },
+        "body": ["DD-WRT"]
+    }
+}

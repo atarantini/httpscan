@@ -1,0 +1,13 @@
+{
+    "name": "Mathopd",
+    "meta": {
+        "class": "HTTP Server",
+        "website": "http://www.mathopd.org/"
+    },
+    "rules": {
+        "headers": {
+            "server": ["Mathopd"]
+        }
+    },
+    "plugins": ["server-header-slash-version"]
+}

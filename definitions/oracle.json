@@ -1,0 +1,14 @@
+{
+    "name": "oracle",
+    "meta": {
+        "vendor": "Oracle",
+        "class": "Application Server",
+        "website": "http://www.oracle.com/"
+    },
+    "rules": {
+        "headers": {
+            "server": ["Oracle"]
+        },
+        "plugins": ["server-header-slash-version"]
+    }
+}

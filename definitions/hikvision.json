@@ -6,7 +6,8 @@
     },
     "rules": {
             "headers": {
-                "server": ["DVRDVS-Webs", "Hikvision-Webs"]
-            }
+                "server": ["DVRDVS-Webs", "Hikvision-Webs", "DNVRS-Webs"]
+            },
+            "body": ["是否登录成功的标志"]
     }
 }

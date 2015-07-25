@@ -1,0 +1,14 @@
+{
+    "name": "linksys",
+    "meta": {
+        "vendor": "Linksys",
+        "class": "Router",
+        "website": "http://www.linksys.com/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["linksys"]
+            },
+            "body": ["Linksys"]
+    }
+}

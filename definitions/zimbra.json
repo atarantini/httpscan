@@ -1,0 +1,14 @@
+{
+    "name": "Zimbra",
+    "meta": {
+        "vendor": "Zimbra",
+        "class": "Mail Server",
+        "website": "https://www.zimbra.com/"
+    },
+    "rules": {
+            "headers": {
+                "server": []
+            },
+            "body": ["Zimbra"]
+    }
+}

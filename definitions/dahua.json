@@ -1,0 +1,14 @@
+{
+    "name": "Dahua",
+    "meta": {
+        "vendor": "",
+        "class": "IP Camera",
+        "website": "http://www.dahuasecurity.com/"
+    },
+    "rules": {
+        "headers": {
+            "server": []
+        },
+        "body": ["WEB SERVICE"]
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "lighthttpd",
+    "meta": {
+        "class": "HTTP Server",
+        "website": "http://www.lighttpd.net/"
+    },
+    "rules": {
+            "headers": {
+                "server": ["lighttpd"]
+            }
+    },
+    "plugins": ["server-header-slash-version"]
+}
