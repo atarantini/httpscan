@@ -16,7 +16,7 @@ import re
 
 REGEX_VERSION = '.*/(.*)$'
 
-def run(host, definition, response):
+def run(host, port, definition, response):
     r = re.compile(REGEX_VERSION)
     match = r.match(response.headers.get('server').split()[0])
     if not match:

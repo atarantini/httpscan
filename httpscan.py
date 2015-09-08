@@ -38,13 +38,14 @@ if __name__ == '__main__':
     parser.add_argument('hosts', help='An IP address for a hostname or network, ex: 192.168.1.1 for single host or 192.168.1.1-254 for network.')
     parser.add_argument('--fast', help='Change timeout settings for the scanner in order to scan faster (T5).', default=False, action='store_true')
     parser.add_argument('--definitions-create', help='Create a definition for a given host', default=False, action='store_true')
+    parser.add_argument('--port', help='Port to be scanned (default: 80)', type=str, default=PORT)
     args = parser.parse_args()
 
     ###########################################################################
     # Create new definition from host if "--definitions-create" argument is set
     #
     if args.definitions_create:
-        url = 'http://{host}/'.format(host=args.hosts)
+        url = 'http://{host}:{port}/'.format(host=args.hosts, port=args.port)
         try:
             response = requests.get(url, timeout=5, verify=False)
         except (requests.exceptions.RequestException, requests.exceptions.SSLError) as e:
@@ -74,7 +75,7 @@ if __name__ == '__main__':
     # Scan
     #
     log.debug('Scanning...')
-    hosts = scan(args.hosts, PORT, args.fast)
+    hosts = scan(args.hosts, args.port, args.fast)
     if not hosts:
         log.debug('No hosts found with port {port} open.'.format(port=PORT))
         exit()
@@ -110,7 +111,7 @@ if __name__ == '__main__':
 
     for host, port in hosts:
         # Make HTTP request
-        url = 'http://{host}/'.format(host=host)
+        url = 'http://{host}:{port}/'.format(host=host, port=port)
         try:
             response = requests.get(url, timeout=5, verify=False)
         except (requests.exceptions.RequestException, requests.exceptions.SSLError) as e:
@@ -153,7 +154,7 @@ if __name__ == '__main__':
                                 'plugins.{name}'.format(name=plugin_name),
                                 *plugin_information
                             )
-                            identity = plugin.run(host, deepcopy(identity), response)
+                            identity = plugin.run(host, args.port, deepcopy(identity), response)
                     except (ImportError, Exception) as e:
                         log.warning(
                             'Unable to load plugin "{}" for "{}" definition: {}'.format(
@@ -163,8 +164,9 @@ if __name__ == '__main__':
         else:
             identity = {'name': header_server}
 
-        log.info('{host}|{definition_name}|{definition_meta}'.format(
+        log.info('http://{host}:{port}/ {definition_name} | {definition_meta}'.format(
             host=host,
+            port=args.port,
             definition_name=identity.get('name'),
             definition_meta=identity.get('meta')
             )

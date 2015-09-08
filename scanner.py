@@ -28,8 +28,8 @@ def scan(hosts, port=22, fast=False):
 
     # Analyze results
     for host, data in list(scan_results.get('scan').items()):
-        if data.get('tcp') and data.get('tcp').get(port).get('state') == 'open':
+        if data.get('tcp') and data.get('tcp').get(int(port)).get('state') == 'open':
             results.append((host, port))
-            log.debug('{host} Seems to have an HTTP server'.format(host=host))
+            #log.debug('{host} Seems to have an HTTP server'.format(host=host))
 
     return results
