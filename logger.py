@@ -5,7 +5,7 @@ import logging
 
 # Setup logging
 log = logging.getLogger('httpscan')
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler = logging.FileHandler('httpscan.log')
 file_handler.setLevel(logging.INFO)

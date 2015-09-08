@@ -20,6 +20,8 @@ import requests
 from scanner import scan
 from logger import log
 
+# To avoid "RuntimeWarning: Parent module 'plugins' not found while handling
+# absolute import"
 warnings.filterwarnings("ignore")
 
 PORT = 80
@@ -35,11 +37,16 @@ if __name__ == '__main__':
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Scan networks for HTTP servers')
-    parser.add_argument('hosts', help='An IP address for a hostname or network, ex: 192.168.1.1 for single host or 192.168.1.1-254 for network.')
+    parser.add_argument('hosts', help='An IP address for a hostname or network, example: 192.168.1.1 for single host or 192.168.1.1-254 for network.')
     parser.add_argument('--fast', help='Change timeout settings for the scanner in order to scan faster (T5).', default=False, action='store_true')
     parser.add_argument('--definitions-create', help='Create a definition for a given host', default=False, action='store_true')
     parser.add_argument('--port', help='Port to be scanned (default: 80)', type=str, default=PORT)
+    parser.add_argument('--debug', help='Show additionalinformation in the logs', action='store_true', default=False)
     args = parser.parse_args()
+
+    # Set debug mode if --debug
+    if args.debug:
+        log.level = 10
 
     ###########################################################################
     # Create new definition from host if "--definitions-create" argument is set
@@ -77,7 +84,7 @@ if __name__ == '__main__':
     log.debug('Scanning...')
     hosts = scan(args.hosts, args.port, args.fast)
     if not hosts:
-        log.debug('No hosts found with port {port} open.'.format(port=PORT))
+        log.debug('No hosts found with port {port} open.'.format(port=args.port))
         exit()
 
     ###########################################################################
